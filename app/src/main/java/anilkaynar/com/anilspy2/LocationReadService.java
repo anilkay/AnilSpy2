@@ -93,3 +93,12 @@ public class LocationReadService extends Service {
         return START_STICKY;
     }
 }
+/*
+   String savedNumber="";
+            String savedNumber2= intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
+            savedNumber = intent.getExtras().getString("android.intent.extra.PHONE_NUMBER");
+
+        Log.e("Saved number","Numara: "+savedNumber);
+        Log.e("İt is ","İt is it");
+        Log.e("Saved number 2 ",savedNumber2);
+ */
