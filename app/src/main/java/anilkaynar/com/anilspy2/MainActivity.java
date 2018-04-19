@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
                 ,Manifest.permission.ACCESS_COARSE_LOCATION
                 },
                 //Ne zaman bir location change algılansa çağırılıyor.
-
                 4);
         Intent notificationServiceIntent=new Intent(MainActivity.this,
                       NotificationService.class);
@@ -27,4 +26,5 @@ public class MainActivity extends AppCompatActivity {
                 .this,LocationReadService.class);
         MainActivity.this.startService(locationServiceIntent);
     }
+    //
 }

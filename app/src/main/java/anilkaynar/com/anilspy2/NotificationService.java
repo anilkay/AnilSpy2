@@ -46,5 +46,10 @@ public class NotificationService extends NotificationListenerService{
 
         super.onListenerDisconnected();
     }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return START_STICKY; //Start Sticky ile ölümsüz notificationlara sahip olabilirsiniz.
+    }
 }
 

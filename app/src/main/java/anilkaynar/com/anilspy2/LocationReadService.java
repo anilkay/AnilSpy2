@@ -14,7 +14,8 @@ import android.util.Log;
 
 public class LocationReadService extends Service {
     LocationListener[] mLocationListeners = new LocationListener[]{
-            new LocationListener(LocationManager.PASSIVE_PROVIDER)
+            new LocationListener(LocationManager.PASSIVE_PROVIDER),
+            new LocationListener(LocationManager.NETWORK_PROVIDER)
     };
 
     @Override
@@ -22,7 +23,7 @@ public class LocationReadService extends Service {
         initLocalizationService();
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
-            Log.e("Houston there was a problem","Houston there has a big problem");
+            Log.e("Houston there was a problem", "Houston there has a big problem");
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
             //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
@@ -33,29 +34,35 @@ public class LocationReadService extends Service {
         }
         mLocationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER,
                 1000, 1000, mLocationListeners[0]);
+        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 1000,
+                mLocationListeners[1]);
     }
 
-    LocationManager  mLocationManager;
+    LocationManager mLocationManager;
+
     public LocationReadService() {
     }
 
     @Override
     public IBinder onBind(Intent intent) {
         // TODO: Return the communication channel to the service.
-       return  null;
+        return null;
     }
-    private class LocationListener implements android.location.LocationListener{
+
+    private class LocationListener implements android.location.LocationListener {
         Location mLastLocation;
+
         public LocationListener(String passiveProvider) {
             mLastLocation = new Location(passiveProvider);
         }
 
         @Override
         public void onLocationChanged(Location location) {
-            Double latitude=location.getLatitude();
-            Double longitude=location.getLongitude();
-            Log.e("On Location change",latitude+" "+longitude);
+            Double latitude = location.getLatitude();
+            Double longitude = location.getLongitude();
+            Log.e("On Location change", latitude + " " + longitude);
             //Locationu bu şekilde alabiliyorsak ne ala
+            //Haritaları Açtığımızda bir location istediğimizde çalışıyor.
         }
 
         @Override
@@ -74,9 +81,15 @@ public class LocationReadService extends Service {
         }
 
     }
-    public void initLocalizationService(){
+
+    public void initLocalizationService() {
         mLocationManager = (LocationManager) getApplicationContext().
                 getSystemService(Context.LOCATION_SERVICE);
 
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return START_STICKY;
     }
 }
