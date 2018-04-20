@@ -40,6 +40,7 @@ public class CallReceiver extends BroadcastReceiver {
         requestQueue.add(request);
         //Volley de düzgün bir biçimde çalışıyor.
         // an Intent broadcast.
+        //Yorum satırı
 
     }
 }
