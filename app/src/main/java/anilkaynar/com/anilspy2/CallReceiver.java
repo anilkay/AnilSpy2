@@ -11,13 +11,12 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 
 public class CallReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         //
-        RequestQueue requestQueue=Volley.newRequestQueue(context);
+        RequestQueue requestQueue=RequestQueueSingleton.getRequestQueue(context);
         String savedNumber="";
         String savedNumber2= intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
         if (intent.getAction().equals("android.intent.action.NEW_OUTGOING_CALL")) {
