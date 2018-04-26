@@ -18,7 +18,10 @@ public class NotificationService extends NotificationListenerService{
         //Çalışıyor dostum çalışıyor
        Bundle extras=notification.extras;
         String title = extras.getString("android.title");
-        String text = extras.getCharSequence("android.text").toString();
+        String text=" ";
+        if(extras.getCharSequence("android.text")!=null) {
+             text = extras.getCharSequence("android.text").toString();
+        }
         Log.e("Title",title); //Title: Selin
         Log.e("Text",text);   //2 yeni Mesaj
     }
